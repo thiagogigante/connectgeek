@@ -1,6 +1,6 @@
-const galleryItems=Array.from({length:20},(_,index)=>({label:`EM BREVE ${String(index+1).padStart(2,'0')}`,image:`assets/cards/card-${String(index+1).padStart(2,'0')}.jpg`}));
+const galleryItems=Array.from({length:30},(_,index)=>({label:`Atividade confirmada ${String(index+1).padStart(2,'0')}`,image:`assets/cards/card-${String(index+1).padStart(2,'0')}.png`}));
 const galleryTrack=document.getElementById('galleryTrack');
-galleryTrack.innerHTML=galleryItems.map((item,index)=>`<article class="gallery-item"><div class="gallery-image"><img src="${item.image}" alt="${item.label}" onerror="this.hidden=true">IMAGEM<br>${String(index+1).padStart(2,'0')}</div><p class="gallery-caption">${item.label}</p></article>`).join('');
+galleryTrack.innerHTML=galleryItems.map(item=>`<article class="gallery-item"><div class="gallery-image"><img src="${item.image}" alt="${item.label}"></div></article>`).join('');
 const scrollGallery=direction=>galleryTrack.scrollBy({left:direction*Math.max(224,galleryTrack.clientWidth*.82),behavior:'smooth'});
 document.querySelector('.gallery-control.prev').addEventListener('click',()=>scrollGallery(-1));
 document.querySelector('.gallery-control.next').addEventListener('click',()=>scrollGallery(1));
@@ -16,7 +16,7 @@ galleryTrack.addEventListener('mouseenter',stopAutoScroll);galleryTrack.addEvent
 const logoFiles={
   realizacao:['realizacao-1.png','realizacao-2.png'],
   coproducao:['co-1.png','co-2.png','co-3.png','co-4.png','co-5.png','co-6.png','co-7.png','co-8.png','co-9.png','co-10.png','co-11.png','co-12.png'],
-  apoio:['apoio-1.png','apoio-2.png','apoio-3.png']
+  apoio:['apoio-1.png','apoio-2.png','apoio-3.png','apoio-4.png','apoio-5.png', ]
 };
 document.querySelectorAll('[data-logos]').forEach(grid=>{const group=grid.dataset.logos;grid.innerHTML=logoFiles[group].map((file,index)=>`<div class="partner-logo">${file?`<img src="assets/logos/${file}" alt="Logo ${index+1}">`:''}<span${file?' hidden':''}>LOGO ${index+1}</span></div>`).join('')});
 
@@ -26,6 +26,12 @@ if(MAP_EMBED_URL){document.getElementById('mapFrame').src=MAP_EMBED_URL;document
 const modal=document.getElementById('modal');
 const showSoon=event=>{event.preventDefault();modal.classList.add('active');modal.setAttribute('aria-hidden','false');document.getElementById('closeModal').focus()};
 document.querySelectorAll('[data-soon]').forEach(item=>item.addEventListener('click',showSoon));
+document.querySelectorAll('.link-card').forEach((card,index)=>{
+  if(index<3){
+    card.querySelector('.status-tag.open').hidden=false;
+    card.querySelector('.status-tag.soon').hidden=true;
+  }
+});
 document.querySelectorAll('.status-tag.soon:not([hidden])').forEach(tag=>tag.closest('.link-card').addEventListener('click',showSoon));
 const closeModal=()=>{modal.classList.remove('active');modal.setAttribute('aria-hidden','true')};
 document.getElementById('closeModal').addEventListener('click',closeModal);modal.addEventListener('click',event=>{if(event.target===modal)closeModal()});document.addEventListener('keydown',event=>{if(event.key==='Escape')closeModal()});

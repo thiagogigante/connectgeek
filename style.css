@@ -106,8 +106,7 @@ a { color: inherit; }
 .social-icon { display: block; flex: 0 0 31px; width: 31px; height: 31px; object-fit: contain; }
 
 .gallery { position: relative; }.gallery-track { display: flex; gap: 14px; padding: 4px 3px 14px; overflow-x: auto; cursor: grab; user-select: none; scroll-snap-type: x mandatory; scrollbar-width: none; }.gallery-track::-webkit-scrollbar { display: none; }.gallery-track.dragging { cursor: grabbing; scroll-snap-type: none; }
-.gallery-item { flex: 0 0 210px; width: 210px; overflow: hidden; border: 3px solid var(--black); border-radius: 14px; background: white; box-shadow: 5px 5px var(--purple-light); scroll-snap-align: start; }.gallery-image { position: relative; display: grid; aspect-ratio: 1; place-items: center; color: var(--purple); background: linear-gradient(135deg, #fff 0 48%, #f3eefc 48% 52%, #fff 52%); font-family: "Press Start 2P", monospace; font-size: 9px; text-align: center; }.gallery-image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }.gallery-caption { min-height: 43px; margin: 0; padding: 8px 10px; border-top: 3px solid var(--black); font-size: 13px; font-weight: 800; line-height: 1.05; }
-.gallery-control { position: absolute; z-index: 2; top: calc(50% - 26px); display: grid; width: 40px; height: 40px; place-items: center; border: 3px solid var(--black); border-radius: 50%; background: var(--white); box-shadow: 3px 3px var(--black); cursor: pointer; font-size: 24px; font-weight: 800; }.gallery-control.prev { left: -12px; }.gallery-control.next { right: -12px; }
+.gallery-item { flex: 0 0 210px; width: 210px; overflow: hidden; border: 3px solid var(--black); border-radius: 14px; background: white; box-shadow: 5px 5px var(--purple-light); scroll-snap-align: start; }.gallery-image { position: relative; aspect-ratio: 1080 / 1350; background: #fff; }.gallery-image img { display: block; width: 100%; height: 100%; object-fit: contain; }.gallery-control { position: absolute; z-index: 2; top: 50%; display: flex; width: 40px; height: 40px; align-items: center; justify-content: center; padding: 0 0 4px; border: 3px solid var(--black); border-radius: 50%; background: var(--white); box-shadow: 3px 3px var(--black); cursor: pointer; font-size: 24px; font-weight: 800; line-height: 1; transform: translateY(-50%); }.gallery-control.prev { left: -12px; padding-right: 2px; }.gallery-control.next { right: -12px; padding-left: 2px; }
 .spotify-player { display: block; width: 100%; height: 152px; margin: 14px auto 0; border: 0; border-radius: 12px; box-shadow: 5px 5px var(--purple-light); }
 
 .map-placeholder, .map-frame { width: 100%; min-height: 220px; border: 3px solid var(--black); border-radius: 16px; box-shadow: 6px 6px var(--purple-light); }.map-placeholder { display: grid; place-items: center; padding: 25px; color: var(--black); background: #fffc; text-align: center; cursor: pointer; }.map-placeholder strong { display: block; margin-bottom: 8px; font-family: "Press Start 2P", monospace; font-size: 11px; }.map-placeholder p { margin: 0; font-size: 14px; font-weight: 700; }.map-frame { min-height: 300px; }.is-hidden { display: none; }
@@ -137,7 +136,7 @@ footer { position: relative; margin: 0 -16px; padding: 44px 16px 22px; color: wh
 .social-icon {
   filter: brightness(0) saturate(100%) invert(89%) sepia(81%) saturate(741%) hue-rotate(330deg) brightness(103%) contrast(105%);
 }
-.partner-label { color: #a478d6; }
+.partner-label { color: #f7c400; }
 
 /* Navegação do carrossel em mouse e telas sensíveis ao toque */
 .gallery-track { touch-action: pan-y; }
@@ -147,7 +146,7 @@ footer { position: relative; margin: 0 -16px; padding: 44px 16px 22px; color: wh
 }
 .gallery-control:hover { background: #d9b8ff; }
 .gallery-control:active {
-  transform: translate(3px, 3px) scale(.96);
+  transform: translate(3px, calc(-50% + 3px)) scale(.96);
   box-shadow: 1px 1px var(--black);
 }
 .gallery-control:focus-visible {
