@@ -16,7 +16,7 @@ galleryTrack.addEventListener('mouseenter',stopAutoScroll);galleryTrack.addEvent
 const logoFiles={
   realizacao:['realizacao-1.png','realizacao-2.png'],
   coproducao:['co-1.png','co-2.png','co-3.png','co-4.png','co-5.png','co-6.png','co-7.png','co-8.png','co-9.png','co-10.png','co-11.png','co-12.png'],
-  apoio:['apoio-1.png','apoio-2.png','apoio-3.png','apoio-4.png','apoio-5.png','apoio-6.png','apoio-7.png']
+  apoio:['apoio-1.png','apoio-2.png','apoio-3.png','apoio-4.png','apoio-5.png','apoio-6.png','apoio-7.png','apoio-8.png']
 };
 document.querySelectorAll('[data-logos]').forEach(grid=>{const group=grid.dataset.logos;grid.innerHTML=logoFiles[group].map((file,index)=>`<div class="partner-logo">${file?`<img src="assets/logos/${file}" alt="Logo ${index+1}">`:''}<span${file?' hidden':''}>LOGO ${index+1}</span></div>`).join('')});
 
