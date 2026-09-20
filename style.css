@@ -144,7 +144,7 @@ footer { position: relative; margin: 0 -16px; padding: 44px 16px 22px; color: wh
 .gallery-control {
   transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
 }
-.gallery-control:hover { background: #d9b8ff; }
+.gallery-control:hover { background: #FFF3B8; }
 .gallery-control:active {
   transform: translate(3px, calc(-50% + 3px)) scale(.96);
   box-shadow: 1px 1px var(--black);
