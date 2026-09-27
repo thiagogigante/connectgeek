@@ -10,6 +10,8 @@ const activityCategories={
   alimentacao:{label:'Alimentação',prefix:'alimentacao'}
 };
 const MAX_CARDS_PER_CATEGORY=30;
+const categoryKeys=Object.keys(activityCategories);
+let activeCategory='arenagamer';
 const renderActivityCards=category=>{
   const {label,prefix}=activityCategories[category];
   galleryTrack.innerHTML=Array.from({length:MAX_CARDS_PER_CATEGORY},(_,index)=>{
@@ -22,11 +24,13 @@ const renderActivityCards=category=>{
     if(!galleryTrack.children.length)galleryTrack.innerHTML='<p class="gallery-empty">Novidades em breve nesta categoria.</p>';
   },{once:true}));
 };
-document.querySelectorAll('.activity-filter').forEach(button=>button.addEventListener('click',()=>{
-  document.querySelectorAll('.activity-filter').forEach(item=>item.classList.toggle('is-active',item===button));
-  renderActivityCards(button.dataset.category);
-}));
-renderActivityCards('arenagamer');
+const selectActivityCategory=category=>{
+  activeCategory=category;
+  document.querySelectorAll('.activity-filter').forEach(button=>button.classList.toggle('is-active',button.dataset.category===category));
+  renderActivityCards(category);
+};
+document.querySelectorAll('.activity-filter').forEach(button=>button.addEventListener('click',()=>selectActivityCategory(button.dataset.category)));
+selectActivityCategory(activeCategory);
 const scrollGallery=direction=>galleryTrack.scrollBy({left:direction*Math.max(224,galleryTrack.clientWidth*.82),behavior:'smooth'});
 document.querySelector('.gallery-control.prev').addEventListener('click',()=>scrollGallery(-1));
 document.querySelector('.gallery-control.next').addEventListener('click',()=>scrollGallery(1));
@@ -36,7 +40,15 @@ galleryTrack.addEventListener('pointermove',event=>{if(isDown)galleryTrack.scrol
 const endDrag=()=>{isDown=false;galleryTrack.classList.remove('dragging');startAutoScroll()};
 galleryTrack.addEventListener('pointerup',endDrag);galleryTrack.addEventListener('pointercancel',endDrag);
 const stopAutoScroll=()=>clearInterval(autoScroll);
-const startAutoScroll=()=>{stopAutoScroll();if(!matchMedia('(prefers-reduced-motion: reduce)').matches)autoScroll=setInterval(()=>{const atEnd=galleryTrack.scrollLeft+galleryTrack.clientWidth>=galleryTrack.scrollWidth-4;galleryTrack.scrollTo({left:atEnd?0:galleryTrack.scrollLeft+224,behavior:'smooth'})},10000)};
+const startAutoScroll=()=>{stopAutoScroll();if(!matchMedia('(prefers-reduced-motion: reduce)').matches)autoScroll=setInterval(()=>{
+  const atEnd=galleryTrack.scrollLeft+galleryTrack.clientWidth>=galleryTrack.scrollWidth-4;
+  if(atEnd){
+    const currentIndex=categoryKeys.indexOf(activeCategory);
+    selectActivityCategory(categoryKeys[(currentIndex+1)%categoryKeys.length]);
+  }else{
+    scrollGallery(1);
+  }
+},5000)};
 galleryTrack.addEventListener('mouseenter',stopAutoScroll);galleryTrack.addEventListener('mouseleave',startAutoScroll);startAutoScroll();
 
 const logoFiles={
