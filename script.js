@@ -1,6 +1,32 @@
-const galleryItems=Array.from({length:30},(_,index)=>({label:`Atividade confirmada ${String(index+1).padStart(2,'0')}`,image:`assets/cards/card-${String(index+1).padStart(2,'0')}.png`}));
 const galleryTrack=document.getElementById('galleryTrack');
-galleryTrack.innerHTML=galleryItems.map(item=>`<article class="gallery-item"><div class="gallery-image"><img src="${item.image}" alt="${item.label}"></div></article>`).join('');
+const activityCategories={
+  arenagamer:{label:'Arena Gamer',prefix:'arenagamer'},
+  cosplay:{label:'Cosplay',prefix:'cosplay'},
+  oficinas:{label:'Oficinas',prefix:'oficinas'},
+  kpop:{label:'K-Pop',prefix:'kpop'},
+  joganerd:{label:'Joga Nerd',prefix:'joganerd'},
+  expositores:{label:'Expositores',prefix:'expositores'},
+  palco:{label:'Palco',prefix:'palco'},
+  alimentacao:{label:'Alimentação',prefix:'alimentacao'}
+};
+const MAX_CARDS_PER_CATEGORY=30;
+const renderActivityCards=category=>{
+  const {label,prefix}=activityCategories[category];
+  galleryTrack.innerHTML=Array.from({length:MAX_CARDS_PER_CATEGORY},(_,index)=>{
+    const number=String(index+1).padStart(2,'0');
+    return `<article class="gallery-item"><div class="gallery-image"><img src="assets/cards/${prefix}_${number}.jpg" alt="${label} ${number}"></div></article>`;
+  }).join('');
+  galleryTrack.scrollLeft=0;
+  galleryTrack.querySelectorAll('img').forEach(image=>image.addEventListener('error',()=>{
+    image.closest('.gallery-item').remove();
+    if(!galleryTrack.children.length)galleryTrack.innerHTML='<p class="gallery-empty">Novidades em breve nesta categoria.</p>';
+  },{once:true}));
+};
+document.querySelectorAll('.activity-filter').forEach(button=>button.addEventListener('click',()=>{
+  document.querySelectorAll('.activity-filter').forEach(item=>item.classList.toggle('is-active',item===button));
+  renderActivityCards(button.dataset.category);
+}));
+renderActivityCards('arenagamer');
 const scrollGallery=direction=>galleryTrack.scrollBy({left:direction*Math.max(224,galleryTrack.clientWidth*.82),behavior:'smooth'});
 document.querySelector('.gallery-control.prev').addEventListener('click',()=>scrollGallery(-1));
 document.querySelector('.gallery-control.next').addEventListener('click',()=>scrollGallery(1));
@@ -16,7 +42,7 @@ galleryTrack.addEventListener('mouseenter',stopAutoScroll);galleryTrack.addEvent
 const logoFiles={
   realizacao:['realizacao-1.png','realizacao-2.png'],
   coproducao:['co-1.png','co-2.png','co-3.png','co-4.png','co-5.png','co-6.png','co-7.png','co-8.png','co-9.png','co-10.png','co-11.png','co-12.png'],
-  apoio:['apoio-1.png','apoio-2.png','apoio-3.png','apoio-4.png','apoio-5.png','apoio-6.png','apoio-7.png','apoio-8.png']
+  apoio:['apoio-1.png','apoio-2.png','apoio-3.png','apoio-4.png','apoio-5.png','apoio-6.png','apoio-7.png','apoio-8.png','apoio-9.png','apoio-10.png','apoio-11.png','apoio-12.png','apoio-13.png','apoio-14.png','apoio-15.png','apoio-16.png'],
 };
 document.querySelectorAll('[data-logos]').forEach(grid=>{const group=grid.dataset.logos;grid.innerHTML=logoFiles[group].map((file,index)=>`<div class="partner-logo">${file?`<img src="assets/logos/${file}" alt="Logo ${index+1}">`:''}<span${file?' hidden':''}>LOGO ${index+1}</span></div>`).join('')});
 
@@ -27,11 +53,12 @@ const modal=document.getElementById('modal');
 const showSoon=event=>{event.preventDefault();modal.classList.add('active');modal.setAttribute('aria-hidden','false');document.getElementById('closeModal').focus()};
 document.querySelectorAll('[data-soon]').forEach(item=>item.addEventListener('click',showSoon));
 document.querySelectorAll('.link-card').forEach((card,index)=>{
-  if(index<3){
+  if(index<4){
     card.querySelector('.status-tag.open').hidden=false;
     card.querySelector('.status-tag.soon').hidden=true;
   }
 });
+document.querySelector('.links').insertAdjacentHTML('afterend','<p class="registration-notice">ATENÇÃO: As pré-inscrições encerram no dia 05/10/2026.</p>');
 document.querySelectorAll('.status-tag.soon:not([hidden])').forEach(tag=>tag.closest('.link-card').addEventListener('click',showSoon));
 const closeModal=()=>{modal.classList.remove('active');modal.setAttribute('aria-hidden','true')};
 document.getElementById('closeModal').addEventListener('click',closeModal);modal.addEventListener('click',event=>{if(event.target===modal)closeModal()});document.addEventListener('keydown',event=>{if(event.key==='Escape')closeModal()});

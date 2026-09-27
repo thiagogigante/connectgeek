@@ -83,9 +83,58 @@ a { color: inherit; }
 .link-card:hover .status-tag:not([hidden]), .link-card:focus-visible .status-tag:not([hidden]), .link-card:active .status-tag:not([hidden]) { animation: tag-pulse .48s ease-in-out infinite; }
 .link-card:hover .icon-box { transform: rotate(-6deg) scale(1.06); }
 .link-copy { min-width: 0; flex: 1; }.link-title { display: block; font-size: 19px; font-weight: 800; line-height: 1; }.link-description { display: block; margin-top: 5px; color: #5e5854; font-size: 12px; font-weight: 700; line-height: 1.15; }
+.registration-notice {
+  margin: 18px auto 0;
+  padding: 10px 13px;
+  border: 2px solid var(--black);
+  border-radius: 11px;
+  background: var(--white);
+  box-shadow: 3px 3px 0 var(--purple-light);
+  color: var(--black);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+}
 
 .section-divider { display: flex; align-items: center; justify-content: center; gap: 9px; margin: 39px 0 15px; font-family: "Press Start 2P", monospace; font-size: 8px; text-align: center; text-transform: uppercase; }
 .section-divider::before, .section-divider::after { content: ""; flex: 0 0 auto; width: 29px; height: 3px; border-radius: 3px; background: var(--black); }
+.activity-filters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: -3px 0 18px;
+}
+.activity-filter {
+  min-height: 38px;
+  padding: 6px 4px;
+  border: 2px solid var(--black);
+  border-radius: 9px;
+  background: var(--purple);
+  box-shadow: 3px 3px 0 var(--black);
+  color: var(--white);
+  cursor: pointer;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+  transition: transform .14s ease, background-color .14s ease, box-shadow .14s ease;
+}
+.activity-filter:hover { transform: translate(-1px, -1px); background: var(--purple-light); box-shadow: 4px 4px 0 var(--black); }
+.activity-filter.is-active { background: #2d145f; transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--black); }
+.activity-filter:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+.gallery-empty {
+  width: 100%;
+  margin: 0;
+  padding: 25px 18px;
+  border: 3px solid var(--black);
+  border-radius: 14px;
+  background: var(--white);
+  box-shadow: 5px 5px 0 var(--purple-light);
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+}
 .socials { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .community-intro {
   margin: -2px 0 18px;
@@ -184,6 +233,8 @@ footer { position: relative; margin: 0 -16px; padding: 44px 16px 22px; color: wh
   .status-tag { top: -13px; right: -4px; padding: 6px 8px; font-size: 6px; }
 
   .section-divider { margin-top: 42px; margin-bottom: 18px; font-size: clamp(7px, 2.35vw, 9px); line-height: 1.6; }
+  .activity-filters { gap: 6px; margin-bottom: 16px; }
+  .activity-filter { min-height: 40px; padding: 5px 2px; font-size: clamp(9px, 2.8vw, 11px); }
   .socials { gap: 14px; }
   .social-button { min-height: 88px; padding: 12px 9px; gap: 9px; }
   .social-button b { font-size: 8px; line-height: 1.35; }
