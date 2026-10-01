@@ -5,7 +5,7 @@ const activityCategories={
   oficinas:{label:'Oficinas',prefix:'oficinas'},
   kpop:{label:'K-Pop',prefix:'kpop'},
   joganerd:{label:'Joga Nerd',prefix:'joganerd'},
-  expositores:{label:'Expositores',prefix:'expositores'},
+  expositores:{label:'Expositores',prefix:'expositor',extension:'png',count:11},
   palco:{label:'Palco',prefix:'palco'},
   alimentacao:{label:'Alimentação',prefix:'alimentacao'}
 };
@@ -13,10 +13,10 @@ const MAX_CARDS_PER_CATEGORY=30;
 const categoryKeys=Object.keys(activityCategories);
 let activeCategory='arenagamer';
 const renderActivityCards=category=>{
-  const {label,prefix}=activityCategories[category];
-  galleryTrack.innerHTML=Array.from({length:MAX_CARDS_PER_CATEGORY},(_,index)=>{
+  const {label,prefix,extension='jpg',count=MAX_CARDS_PER_CATEGORY}=activityCategories[category];
+  galleryTrack.innerHTML=Array.from({length:count},(_,index)=>{
     const number=String(index+1).padStart(2,'0');
-    return `<article class="gallery-item"><div class="gallery-image"><img src="assets/cards/${prefix}_${number}.jpg" alt="${label} ${number}"></div></article>`;
+    return `<article class="gallery-item"><div class="gallery-image"><img src="assets/cards/${prefix}_${number}.${extension}" alt="${label} ${number}"></div></article>`;
   }).join('');
   galleryTrack.scrollLeft=0;
   galleryTrack.querySelectorAll('img').forEach(image=>image.addEventListener('error',()=>{
