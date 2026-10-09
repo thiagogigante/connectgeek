@@ -221,7 +221,6 @@ document.querySelectorAll('.link-card').forEach((card,index)=>{
     card.querySelector('.status-tag.soon').hidden=true;
   }
 });
-document.querySelector('.links').insertAdjacentHTML('afterend','<p class="registration-notice">ATENÇÃO: As pré-inscrições encerram no dia 05/10/2026.</p>');
 document.querySelectorAll('.status-tag.soon:not([hidden])').forEach(tag=>tag.closest('.link-card').addEventListener('click',showSoon));
 const closeModal=()=>{modal.classList.remove('active');modal.setAttribute('aria-hidden','true')};
 document.getElementById('closeModal').addEventListener('click',closeModal);modal.addEventListener('click',event=>{if(event.target===modal)closeModal()});document.addEventListener('keydown',event=>{if(event.key==='Escape')closeModal()});
